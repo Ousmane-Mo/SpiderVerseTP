@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+{% block title %}Gallery{% endblock %}
+{% block body %}
+    <div class="container col-7">
+        {{ include('gallery/_carousel.html.twig', {'mode': 'All'}) }}
+    </div>
+{% endblock %}

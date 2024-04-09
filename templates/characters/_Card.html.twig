@@ -1,0 +1,69 @@
+{% block body %}
+ <div class="card mb-3 text-center ">
+        <h4 class="card-header bg-danger">{{user.username}}</h4>
+        <div class="card-body bg-info">
+            <img class=" cardPfp mx-auto my-3 rounded-circle border border-black bg-light"
+            {% if user.avatar is empty %}
+               src="{{ asset('/asset/images/Avatars/default_pfp_spiderman.jpg') }}"
+            {% else %}
+                src="{{ asset('/asset/images/upload/Avatars/' ~ user.avatar) }}" 
+            {% endif %}
+            alt="Avatar">
+            {% if mode == 'Allprofiles' %}
+                <ul class="list-group list-group-flush contactInfo my-2">
+                    {% if user.realname ==  "" or user.realname is none %}
+                        <li class="list-group-item text-muted">Real Name: Not Set Yet!</li>
+                    {% else %}
+                        <li class="list-group-item ">Real Name: {{user.realname}} </li>
+                    {% endif %}
+                    {% if user.heroname == "" or user.heroname is none %}
+                        <li class="list-group-item text-muted">Hero Name: Not a hero</li>
+                    {% elseif user.username == 'Spot' %}
+                        <li class="list-group-item text">Villain Name: {{user.heroname}}</li>
+                    {% else %}
+                        <li class="list-group-item ">Hero Name: {{user.heroname}} </li>
+                    {% endif %}
+                </ul>
+                <a class="btn btn-danger" href="{{path('app_character', {'id':user.id})}}">Details</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                {% if user.username == 'Modoari' %}
+                    <a class="btn btn-danger" href="{{path('app_profile_admin', {'id':user.id})}}">Edit</a>
+                {% else %}
+                    <a class="btn btn-danger" href="{{path('app_profile_admin', {'id':user.id})}}">Edit</a>
+                    <a class="btn btn-danger" href="{{path('app_delete', {'id':user.id})}}" >Delete</a>
+                {% endif %}
+                {% endif %}
+            {% endif %}
+            {% if mode == 'ProfilesDetails' %}
+                <ul class="list-group list-group-flush contactInfo my-2">
+                    {% if user.realname ==  "" or user.realname is none %}
+                        <li class="list-group-item text-muted">Real Name: Not Set Yet!</li>
+                    {% else %}
+                        <li class="list-group-item ">Real Name: {{user.realname}} </li>
+                    {% endif %}
+                    {% if user.heroname == "" or user.heroname is none %}
+                        <li class="list-group-item text-muted">Not a hero</li>
+                    {% else %}
+                        <li class="list-group-item ">Hero Name: {{user.heroname}} </li>
+                    {% endif %}
+                        <li class="list-group-item text">
+                         Quotes: <br>
+                            {% for quote in quotes %}
+                                - {{quote.quote}} <br> 
+                            {% endfor %}
+                        </li>
+                        <li class="list-group-item">
+                        Movies: <br>
+                            {% for movie in movies %}
+                                - {{movie.moviename}} -- {{movie.yearReleased}} <br>
+                            {% endfor %}
+                        </li>
+                </ul>
+                <a href="{{path('app_characters')}}" class="btn btn-danger">Retour à la liste des personnages</a>
+            {% endif %}
+        </div>
+            
+</div>
+{% endblock %}
+
+{# ../../public/asset/images/ogun.jpg #}

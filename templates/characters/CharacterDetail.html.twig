@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{user.username}}{% endblock %}
+{% block body %}
+
+<div class="col-6 text-center container">
+    {{ include('characters/_Card.html.twig', {'mode': 'ProfilesDetails' }) }}
+</div>
+<div class="container col-8">
+    {{ include('gallery/_carousel.html.twig', {'mode': user.username }) }}
+</div>
+
+{% endblock %}

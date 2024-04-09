@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block body %}
+<style>
+    body {
+        background-image: url('../asset/images/Spider_Society.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+</style>
+
+    <section class="text-center my-5">
+
+       {% if app.user == true %}
+            <h1 class="text-light">Welcome to <em class="text-danger-emphasis">Spider </em><em class="text-info-emphasis">Society</em></h1>
+            <div class="text-light fs-2">
+                This is the lobby feel free to explore.
+            </div>
+        {% else %}
+            <h1 class="text-warning">!! Warning unidentified individual !!</h1>
+            <div class="text-light">
+                Please identify yourself or we will be forced to send you back to where you came from
+                <div class="my-4">
+                    <a class="btn btn-danger" href="{{ path('app_login') }}">Login</a>
+                    <a class="btn btn-info" href="{{ path('app_register') }}">Register</a>
+                </div>
+            </div>
+       {% endif %}
+
+
+    </section>
+    
+{% endblock %}
